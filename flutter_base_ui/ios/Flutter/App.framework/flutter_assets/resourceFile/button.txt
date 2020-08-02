@@ -1,0 +1,44 @@
+2.2.5 Button Flutter 提供了各种类型的 Button 几乎是大同小异的，这边就抽取一些比较常用的展示下效果，常用的主要有 RaisedButton 、FlatButton、IconButton、OutlineButton、MaterialButton、FloatActionButton、FloatingActionButton.extended
+
+Button 都有一个 onPress 参数，是 VoidCallback 类型的参数，通过查看源码可以知道 VoidCallback 是无参无返回值的一种类型参数。如果该参数传入的值为 null 那么这个按钮的就不可点击状态，无点击效果，等会可以在例子中查看。还有就是 child 参数，这里就是传入你需要展示的内容，比如 Text、Icon 等等。别的参数基本可以通过参数名了解，这边不扩展了(再看源码我怕你们都不想继续看下去了…)
+
+import 'package:flutter/material.dart';
+
+
+class ButtonPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(
+        padding: EdgeInsets.all(0),
+        alignment: Alignment.center,
+        child:Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            RaisedButton(
+              onPressed: () {
+                print('This is a Rased Button can be clicked');
+              },
+              child: Text('Raised Enable'),
+            ),
+            RaisedButton(onPressed: null, child: Text('Raised Disable')),
+            FlatButton(
+              onPressed: () => print('This is a Flat Button can be clicker'),
+              child: Text('Flat Enable'),
+            ),
+            FlatButton(onPressed: null, child: Text('Flat Disable')),
+            IconButton(icon: Icon(Icons.android), onPressed: () {}),
+            IconButton(icon: Icon(Icons.android), onPressed: null),
+            MaterialButton(onPressed: () {}, child: Text('Material Enable')),
+            MaterialButton(onPressed: null, child: Text('Material Disable')),
+            OutlineButton(onPressed: () {}, child: Text('Outline Enable')),
+            OutlineButton(onPressed: null, child: Text('Outline Enable')),
+          ],
+        )
+      ),
+      floatingActionButton:  FloatingActionButton.extended(onPressed: () {}, icon: Icon(Icons.android), label: Text('Android')),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );
+  }
+}

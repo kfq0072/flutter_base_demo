@@ -1,0 +1,72 @@
+**2.2.10 Flex，Row，Column**
+在 Flutter 中用两个部件，Row Column来代替 Android 中的 LinearLayout，其中 Row 是横向布局，Column 是垂直布局，因为 Row 和 Column 都是继承于 Flex 部件，Flex 比他们多了 direction 属性用来指定方向，所以主要拿 Column 来讲解，Flex 、Row 用法相同
+
+```javascript
+Column({
+    Key key,
+    // 对齐方式，对于 `Column` start 为顶部，对于 `Row` 需要分语言，和语言同向
+    // 3 种比较特殊的对齐方式，前端的小伙伴会了解，
+    // spaceAround 两个部件之间的间隔是部件和上层容器间隔的两倍
+    // spaceBetween 两侧部件同上层容器间隔为 0，部件之间的间隔相等
+    // spaceEvenly 部件之间的间隔同两侧部件与上层容器间隔
+    MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start, 
+    MainAxisSize mainAxisSize = MainAxisSize.max, // 主轴的大小
+    CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.center, // 副轴对齐方式
+    TextDirection textDirection, // 文字方向，决定 start
+    VerticalDirection verticalDirection = VerticalDirection.down, // 垂直方向
+    TextBaseline textBaseline,
+    List<Widget> children = const <Widget>[], // 内部子部件
+  })
+Row 和 Column 都有主轴和副轴，如何区分呢，布局平行方向为主轴，垂直方向为副轴，我们把 Container 的 child 修改成 Column，然后把 Text 放到 Column 中，多放几个，然后自己设置 mainAxisAlignment 属性，查看布局的变化
+// … 省略相同代码
+
+child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Text('Container Text 1', style: TextStyle(color: Colors.white, fontSize: 30.0)),
+            Text('Container Text 2', style: TextStyle(color: Colors.white, fontSize: 30.0)),
+            Text('Container Text 3', style: TextStyle(color: Colors.white, fontSize: 30.0)),
+            Text('Container Text 4', style: TextStyle(color: Colors.white, fontSize: 30.0)),
+            Text('Container Text 5', style: TextStyle(color: Colors.white, fontSize: 30.0)),
+          ],
+        )
+// …
+
+const BoxConstraints.tightFor({
+    double width,
+    double height
+  }): minWidth = width != null ? width : 0.0,
+      maxWidth = width != null ? width : double.infinity,
+      minHeight = height != null ? height : 0.0,
+      maxHeight = height != null ? height : double.infinity;
+ Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child:Column(
+          children:[
+           Image.asset(this.localImageName,width: 100,height: 100,),
+           Image.network(networkImageUrl,
+                  height: 80.0,
+                  // 横向重复
+                  repeat: ImageRepeat.repeatX,
+                  // MediaQuery.of(context).size 获取到的为上层容器的宽高
+                  width: MediaQuery.of(context).size.width),
+
+          // 会优先加载指定的 asset 图片，然后等网络图片读取成功后加载网络图片，会通过渐隐渐现方式展现
+              // cover 方式按照较小的边布满，较大的给切割
+              // contain 会按照最大的边布满，较小的会被留白
+              // fill 会把较大的一边压缩
+              // fitHeight, fitWidth 分别按照长宽来布满
+
+          FadeInImage.assetNetwork(placeholder: this.localImageName, image: this.fadeInImageUrl,
+          width:100,height:120
+          ),
+          // Icon 相对属性少了很多，需要传入一个 IconData 实例，flutter 提供了很多图标，
+              // 但是实际情况我们需要加入我们自己的图标，这边再埋坑【坑3】
+              // size 为图标显示的大小，color 为图标的颜色，这边通过 Theme 获取主题色调
+            Icon(Icons.iso,size:80,color:Colors.green)
+          ]
+        )
+      ),
+    );

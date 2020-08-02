@@ -1,0 +1,149 @@
+在 Flutter 中，自带手势监听的目前为止好像只有按钮部件和一些 chip 部件，例如 Text 等部件需要实现手势监听，就需要借助带有监听事件的部件来实现了，这节我们会讲下 InkWell 和 GestureDetector 来实现手势的监听。
+
+InkWell
+在前面的一些例子中，小伙伴应该看到了好几次 InkWell 这个部件，通过它我们可以实现对一些手势的监听，并实现 MD 的水波纹效果，举个简单的一个例子
+
+InkWell(
+  child: Text('点我...点我...我能响应点击手势'),
+  onTap: () => print('啊...我被点击了...')
+),
+那么当点击 Text 的时候就会响应点击事件，控制台输出日志
+
+我们还是老套路，分析下源码。Ctrl 点击 InkWell 来查看源码(Android Studio 的操作，别的我不懂喔...)，然后，「嗯...除了构造函数怎么什么都没有？？？」那只能看它的父类 InkResponse 了，在那之前，我们看下 InkWell 的说明
+
+/// A rectangular area of a [Material] that responds to touch.
+InkWell 是在 MaterialDesign 风格下的一个用来响应触摸的矩形区域（注意加粗的文字，1.如果不是 MD 风格的部件下，你是不能用这个来做点击响应的；2.InkWell 是一块矩形区域，如果你要的是圆形区域，8 好意思，不行！）
+
+/// The [InkWell] widget must have a [Material] widget as an ancestor. The
+/// [Material] widget is where the ink reactions are actually painted. This
+/// matches the material design premise wherein the [Material] is what is
+/// actually reacting to touches by spreading ink.```
+InkWell 必须要有一个 Material 风格的部件作为锚点，巴拉巴拉巴拉....再次强调必须要在 MD 风格下使用。
+
+接下来看下 InkResponse 吧
+
+InkResponse
+const InkResponse({
+    Key key,
+    this.child, // 需要监听的子部件
+    // 一个 `GestureTapCallback` 类型参数，看下 `GestureTapCallback` 的定义,
+    // `typedef GestureTapCallback = void Function();` 就是简单的无参无返回类型参数
+    // 监听手指点击事件
+    this.onTap,
+    // 一个 `GestureTapDownCallback` 类型参数，需要 `TapDownDetails` 类型参数，
+    // `TapDownDetails` 里面有个 `Offset` 参数用于记录点击的位置，监听手指点击屏幕的事件
+    this.onTapDown,
+    // 同 `onTap` 表示点击事件取消监听
+    this.onTapCancel,
+    // 同 `onTap` 表示双击事件监听
+    this.onDoubleTap,
+    // 一个 `GestureLongPressCallback` 类型参数，也是无参无返回值，表示长按的监听
+    this.onLongPress,
+    // 监听高亮的变化，返回 `true` 表示往高亮变化，`false` 相反
+    this.onHighlightChanged,
+    // 是否需要裁剪区域，`InkWell` 该值为 `true`，会根据 `highlightShape` 裁剪
+    this.containedInkWell = false,
+    // 高亮的外形，`InkWell` 该值设置成 `BoxShape.rectangle`，所以是个矩形区域
+    this.highlightShape = BoxShape.circle,
+    this.radius, // 手指点下去的时候，出现水波纹的半径
+    this.borderRadius, // 点击时候外圈阴影的圆角半径
+    this.customBorder,
+    this.highlightColor, // 高亮颜色
+    this.splashColor, // 手指点下生成的水波颜色
+    this.splashFactory, // 两个值 `InkRipple.splashFactory` 和 `InkSplash.splashFactory`
+    this.enableFeedback = true, // 检测到手势是否有反馈
+    this.excludeFromSemantics = false,
+  }) 
+所以一些简单的触摸事件直接通过 InkWell 或者 InkResponse 就能够实现，但是面临一些比较复杂的手势，就有点不太够用了，我们需要通过 GestureDector 来进行处理
+
+GestureDector
+GestureDetector 也是一个部件，主要实现对各种手势动作的监听，其监听事件查看下面的表格
+
+回调方法  回调描述
+onTapDown 点击屏幕的手势触碰到屏幕时候触发
+onTapUp 点击屏幕抬手后触发，点击结束
+onTap 点击事件已经完成的时候触发，和 onTapUp 几乎同时
+onTapCancel 点击未完成，被其它手势取代的时候触发
+onDoubleTap 双击屏幕的时候触发
+onLongPress 长按屏幕的时候触发
+onLongPressUp 长按屏幕后抬手触发
+onVerticalDragDown  触碰到屏幕，可能发生垂直方向移动触发，onVerticalDrag 系列事件不会同 onHorizontalDrag 系列事件同时发生 ，如果发生了 onVerticalDrag 则接下来如何变化移动，都不会触发 onHorizontalDrag 事件，除非取消后重新触发。判断两者的关键是准备滑动的意图，先发生横向滑动则触发 onHorizontalDrag 事件，否则 onVerticalDrag 事件。
+onVerticalDragStart 触碰到屏幕，并开始发生垂直方向的移动触发
+onVerticalDragUpdate  垂直方向移动的距离变化触发
+onVerticalDragEnd 抬手取消垂直方向移动的时候触发
+onVerticalDragCancel  触发 onVerticalDragDown 但是没有完成整个 onVerticalDrag 事件触发
+onHorizontalDrag 系列介绍省略同上...
+onPanDown 触碰到屏幕，准备滑动的时候触发，onPan 系列回调不可和 onVerticalDrag 或者 onHorizontalDrag 系列回调同时设置
+onPanStart  触碰到屏幕，并开始滑动时候触发
+onPanUpdate 滑动位置发生改变的时候触发
+onPanEnd  滑动完成并抬手的时候触发
+onPanCancel 触发 onPanDown 但是没有完成整个 onPan 事件触发
+onScaleStart  两个手指之间建立联络点触发，初始缩放比例为 1.0
+onScaleUpdate 手指距离发生变化，缩放比例也跟随变化触发
+onScaleEnd  手指抬起，至间的联络断开时候触发
+还有 onForcePress 系列事件，这个是根据对屏幕的挤压力度进行触发，需要达到某些定值才能触发。GestureDetector 有个 behavior 属性用于设置手势监听过程中的表现形式
+
+deferToChild 默认值，触摸到 child 的范围才会触发手势，空白处不会触发
+opaque 不透明模式，防止 background widget 接收到手势
+translucent 半透明模式，刚好同 opaque 相反，允许 background widget 接收到手势
+介绍完了手势，那就可以实际操练起来了，比如，实现一个跟随手指运动的小方块，先看下效果图
+
+gesture_01.gif
+简单的分析下，通过 Positioned 来设置小方块的位置，根据 GestureDetector 的 onPanUpdate 修改 Positioned 的 left 和 top 值，当 onPanEnd 或者 onPanCancel 的时候设置为原点，那么就可以有如图的效果了
+
+class GestureDemoPage extends StatefulWidget {
+  @override
+  _GestureDemoPageState createState() => _GestureDemoPageState();
+}
+
+class _GestureDemoPageState extends State<GestureDemoPage> {
+  double left = 0.0;
+  double top = 0.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Gesture Demo'),
+        ),
+        body: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            Positioned(child: Container(width: 50.0, height: 50.0, color: Colors.red), left: left, top: top),
+            GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              child: Container(
+                  color: Colors.transparent,
+                  width: MediaQuery.of(context).size.width - 10,
+                  height: MediaQuery.of(context).size.height),
+              onPanDown: (details) {
+                setState(() {
+                  left = details.globalPosition.dx;
+                  top = details.globalPosition.dy;
+                });
+              },
+              onPanUpdate: (details) {
+                setState(() {
+                  left = details.globalPosition.dx;
+                  top = details.globalPosition.dy;
+                });
+              },
+              onPanCancel: () {
+                setState(() {
+                  left = 0.0;
+                  top = 0.0;
+                });
+              },
+              onPanEnd: (details) {
+                setState(() {
+                  left = 0.0;
+                  top = 0.0;
+                });
+              },
+            )
+          ],
+        ));
+  }
+}
+如果说要实现一个放大缩小的方块，就可以通过 onScaleUpdate 中获取到的 details.scale 来设置方块的宽高即可。这个比较简单就
+

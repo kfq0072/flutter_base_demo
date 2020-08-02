@@ -1,0 +1,40 @@
+2.2.6 AppBar
+Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true, // 标题内容居中
+        automaticallyImplyLeading: false, // 不使用默认
+        leading: Icon(Icons.menu, color: Colors.red, size: 30.0), // 左侧按钮
+        flexibleSpace: Image.asset('images/meizi.jpeg', fit: BoxFit.cover), // 背景
+        title: Text('AppBar Demo', style: TextStyle(color: Colors.red)), // 标题内容
+        // 末尾的操作按钮列表
+        actions: <Widget>[
+          PopupMenuButton(
+              onSelected: (val) => print('Selected item is $val'),
+              icon: Icon(Icons.more_vert, color: Colors.red),
+              itemBuilder: (context) =>
+                  List.generate(_abs.length, (index) => PopupMenuItem(value: _abs[index], child: Text(_abs[index]))))
+        ],
+      ),
+     );
+效果图如下： appbar.png
+接着介绍下 PopupMenuButton 这个部件，还是按照惯例看构造函数
+
+// itemBuilder
+typedef PopupMenuItemBuilder<T> = List<PopupMenuEntry<T>> Function(BuildContext context);
+// onSelected
+typedef PopupMenuItemSelected<T> = void Function(T value);
+
+const PopupMenuButton({
+    Key key,
+    @required this.itemBuilder, // 用于定义 menu 列表，需要传入 List<PopupMenuEntry<T>>
+    this.initialValue, // 初始值，是个泛型 T，也就是类型和你传入的值有关
+    this.onSelected, // 选中 item 的回调函数，返回 T value，例如选中 `s` 则返回 s
+    this.onCanceled, // 未选择任何 menu，直接点击外侧使 mune 列表关闭的回调
+    this.tooltip, // 长按时的提示
+    this.elevation = 8.0,
+    this.padding = const EdgeInsets.all(8.0),
+    this.child, // 用于自定义按钮的内容
+    this.icon, // 按钮的图标
+    this.offset = Offset.zero, // 展示时候的便宜，Offset 需要传入 x,y 轴偏移量，会根据传入值平移
+  })

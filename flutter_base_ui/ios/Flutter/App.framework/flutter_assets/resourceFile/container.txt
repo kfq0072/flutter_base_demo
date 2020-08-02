@@ -1,0 +1,16 @@
+2.2.9 Container 常会在最外层包裹一层 Container，其构造函数也不是很难理解
+Container({
+    Key key,
+    this.alignment, // child 的对齐方式，包括左对齐，居中，右对齐，左上对齐..等等
+    this.padding, // child 和 Container 的边距
+    Color color, // Container 的背景色
+    Decoration decoration, // 样式，可以设置背景图，圆角等属性
+    this.foregroundDecoration, // child 的样式
+    double width, // 宽度
+    double height, // 高度
+    BoxConstraints constraints, // 默认使用 BoxConstraints.tightFor，可以手动传入
+    this.margin, // Container 同上层容器的边距
+    this.transform, // 是个 Matrix4 矩阵，(嗯..这个参数基本很少用，没怎么了解 /捂脸)
+    this.child, // 需要展示的内容
+  })
+让我们写个圆角矩形的外层，内层值显示白色文字

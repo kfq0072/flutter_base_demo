@@ -1,0 +1,44 @@
+7.5.2 StreamBuilder
+我们知道，在Dart中Stream 也是用于接收异步事件数据，和Future 不同的是，它可以接收多个异步操作的结果，它常用于会多次读取数据的异步任务场景，如网络内容下载、文件读写等。StreamBuilder正是用于配合Stream来展示流上事件（数据）变化的UI组件。下面看一下StreamBuilder的默认构造函数：
+
+StreamBuilder({
+  Key key,
+  this.initialData,
+  Stream<T> stream,
+  @required this.builder,
+})
+可以看到和FutureBuilder的构造函数只有一点不同：前者需要一个future，而后者需要一个stream。
+
+示例
+我们创建一个计时器的示例：每隔1秒，计数加1。这里，我们使用Stream来实现每隔一秒生成一个数字:
+
+Stream<int> counter() {
+  return Stream.periodic(Duration(seconds: 1), (i) {
+    return i;
+  });
+}
+StreamBuilder使用代码如下：
+
+
+ Widget build(BuildContext context) {
+    return StreamBuilder<int>(
+      stream: counter(), //
+      //initialData: ,// a Stream<int> or null
+      builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+        if (snapshot.hasError)
+          return Text('Error: ${snapshot.error}');
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+            return Text('没有Stream');
+          case ConnectionState.waiting:
+            return Text('等待数据...');
+          case ConnectionState.active:
+            return Text('active: ${snapshot.data}');
+          case ConnectionState.done:
+            return Text('Stream已关闭');
+        }
+        return null; // unreachable
+      },
+    );
+ }
+读者可以自己运行本示例查看运行结果。注意，本示例只是为了演示StreamBuilder的使用，在实战中，凡是UI会依赖多个异步数据而发生变化的场景都可以使用StreamBuilder。

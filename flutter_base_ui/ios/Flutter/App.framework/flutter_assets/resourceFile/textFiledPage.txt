@@ -1,0 +1,31 @@
+2.2.11 TextFild
+const TextField({
+    Key key,
+    this.controller, // 定义一个 `TextEditingController` 实例，用来获取输入框内容等操作
+    this.focusNode, // 定义一个 `FocusNode` 实例，判断当前输入框是否获取到焦点等操作
+    this.decoration = const InputDecoration(), // 输入框样式，包括提醒字样，hint 等等
+    TextInputType keyboardType, // 输入文本类型，例如 数字，email 等等
+    this.textInputAction, // 键盘确认按钮的事件类型
+    this.textCapitalization = TextCapitalization.none,
+    this.style, // 文字样式
+    this.textAlign = TextAlign.start, // 对齐方式
+    this.textDirection, // 文字方向
+    this.autofocus = false, // 是否自动获取焦点
+    this.obscureText = false, // 文字是否隐藏，多用于密码
+    this.autocorrect = true, 
+    this.maxLines = 1, //
+    this.maxLength, // 最大长度
+    this.maxLengthEnforced = true, // 设置最大长度后，输入内容超出后是否强制不给输入
+    this.onChanged, // 输入内容发生变化时候的回调
+    this.onEditingComplete, // 输入完毕的回调
+    this.onSubmitted, // 提交内容的回调
+    this.inputFormatters, // 
+    this.enabled, // 是否可输入，false 不可输入
+    this.cursorWidth = 2.0, // 游标宽度
+    this.cursorRadius, // 游标半径
+    this.cursorColor, // 游标颜色
+    this.keyboardAppearance, // 该属性只在 iOS 设备有效
+    this.scrollPadding = const EdgeInsets.all(20.0),
+    this.enableInteractiveSelection,
+    this.onTap, // 点击事件
+  })

@@ -1,0 +1,14 @@
+2.2.3 Text 构造函数:
+
+const Text(this.data, { // Text 需要展示的文字
+    Key key,
+    this.style, // 文字的样式，包括颜色，大小，间距等等属性，这边就不继续展示 TextStyle 构造函数了，不然我怕大家都不想继续看了，稍后通过例子来说明
+    this.textAlign, // 文字的对齐方式，包括左对齐，右对齐，居中等，详见 TextAlign 类
+    this.textDirection, // 文字方向，ltr(left to right) 或者 rtl(right to left)
+    this.locale, 
+    this.softWrap, // 当文字一行显示不完是否换行
+    this.overflow, // 如果超出限制的行数，以哪种方式省略未展示的内容
+    this.textScaleFactor, // 文字缩放比例
+    this.maxLines, // 最多展示的行数
+    this.semanticsLabel,
+  })

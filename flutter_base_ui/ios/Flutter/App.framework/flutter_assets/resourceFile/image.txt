@@ -1,0 +1,54 @@
+2.2.4 Image
+const Image({
+    Key key,
+    // 一个 ImageProvider 实例，但是 ImageProvider 是一个抽象类，Flutter 已经给我们提供如下
+    // AssetImage，NetworkImage，FileImage，MemoryImage 这四种图片加载器，为了方便调用
+    // 我们可以直接通过 Image.asset, Image.network, Image.file, Image.memory 简化，
+    // 通过方法名，可以看出分别从 asset 文件，网络，文件，内存中加载图片
+    @required this.image, 
+    this.semanticLabel,
+    this.excludeFromSemantics = false,
+    this.width, // 图片宽度
+    this.height, // 图片高度
+    this.color, // 图片背景色
+    this.colorBlendMode, // color 和图片的混合模式(这个值比较多，可以一个个尝试)
+    this.fit, // 图片填充方式 fill, cover, contain, fillWidth, fillHeight, scaleDown, none
+    this.alignment = Alignment.center, // 对齐方式
+    this.repeat = ImageRepeat.noRepeat, // 若未填充满空间，重复展示的方式
+    this.centerSlice,
+    this.matchTextDirection = false,
+    this.gaplessPlayback = false,
+    this.filterQuality = FilterQuality.low,
+  })
+简单使用:
+ Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child:Column(
+          children:[
+           Image.asset(this.localImageName,width: 100,height: 100,),
+           Image.network(networkImageUrl,
+                  height: 80.0,
+                  // 横向重复
+                  repeat: ImageRepeat.repeatX,
+                  // MediaQuery.of(context).size 获取到的为上层容器的宽高
+                  width: MediaQuery.of(context).size.width),
+
+          // 会优先加载指定的 asset 图片，然后等网络图片读取成功后加载网络图片，会通过渐隐渐现方式展现
+              // cover 方式按照较小的边布满，较大的给切割
+              // contain 会按照最大的边布满，较小的会被留白
+              // fill 会把较大的一边压缩
+              // fitHeight, fitWidth 分别按照长宽来布满
+
+          FadeInImage.assetNetwork(placeholder: this.localImageName, image: this.fadeInImageUrl,
+          width:100,height:120
+          ),
+          // Icon 相对属性少了很多，需要传入一个 IconData 实例，flutter 提供了很多图标，
+              // 但是实际情况我们需要加入我们自己的图标，这边再埋坑【坑3】
+              // size 为图标显示的大小，color 为图标的颜色，这边通过 Theme 获取主题色调
+            Icon(Icons.iso,size:80,color:Colors.green)
+          ]
+        )
+      ),
+    );
