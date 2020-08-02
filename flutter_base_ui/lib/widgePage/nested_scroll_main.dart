@@ -18,7 +18,7 @@ class NestedScrollDemoPage extends StatelessWidget {
                         pinned: true,
                         title: Text('NestedScroll Demo'),
                         expandedHeight: 200.0,
-                        flexibleSpace: FlexibleSpaceBar(background: Image.asset('images/timg.jpg', fit: BoxFit.cover)),
+                        flexibleSpace: FlexibleSpaceBar(background: Image.asset('images/meinv.png', fit: BoxFit.cover)),
                         bottom: TabBar(tabs: _tabs.map((tab) => Text(tab, style: TextStyle(fontSize: 18.0))).toList()),
                         forceElevated: innerScrolled,
                       ),

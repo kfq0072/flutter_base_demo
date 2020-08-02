@@ -1,8 +1,8 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
 export "FLUTTER_ROOT=/Users/admin/development/flutter"
-export "FLUTTER_APPLICATION_PATH=/Users/admin/Desktop/kfq/demo/MyFlutter/gitPro/flutter_base_demo/flutter_base_ui"
-export "FLUTTER_TARGET=/Users/admin/Desktop/kfq/demo/MyFlutter/gitPro/flutter_base_demo/flutter_base_ui/lib/main.dart"
+export "FLUTTER_APPLICATION_PATH=/Users/admin/Desktop/kfq/demo/MyFlutter/gitHubPro/base_demo/flutter_base_ui"
+export "FLUTTER_TARGET=/Users/admin/Desktop/kfq/demo/MyFlutter/gitHubPro/base_demo/flutter_base_ui/lib/main.dart"
 export "FLUTTER_BUILD_DIR=build"
 export "SYMROOT=${SOURCE_ROOT}/../build/ios"
 export "FLUTTER_FRAMEWORK_DIR=/Users/admin/development/flutter/bin/cache/artifacts/engine/ios"
