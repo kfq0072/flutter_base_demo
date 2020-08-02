@@ -35,11 +35,11 @@ class _BaseStatefulWidgetState extends State<BaseStatefulWidget> {
         bottomNavigationBar: BottomNavigationBar(items: [
            BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              title: Text('home'),
+              title: Text('UI'),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.alarm),
-              title: Text('docment')
+              title: Text('Docment')
             ), 
         ],
         onTap: (int index){

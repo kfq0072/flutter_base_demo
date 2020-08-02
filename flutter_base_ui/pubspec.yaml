@@ -63,7 +63,7 @@ flutter:
     - resourceFile/appbar.txt
     - resourceFile/checkBoxAndSwitchdialog.txt
     - resourceFile/rowAndColumn.txt
-    - resourceFile/wrapPage.txt
+    - resourceFile/wrapFlowPage.txt
     - resourceFile/textFiledPage.txt
     - resourceFile/loginPage.txt
     - resourceFile/pushAndPop.txt
@@ -81,6 +81,10 @@ flutter:
     - resourceFile/transformDemo.txt
     - resourceFile/StreamBuilderPage.txt
     - resourceFile/FutureBuilderPage.txt
+    - resourceFile/progressIndicatorPage.txt
+    - resourceFile/decoratedBoxDemo.txt
+    
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

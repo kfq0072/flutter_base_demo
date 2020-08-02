@@ -7,7 +7,7 @@ import '../widgePage/appBarPage.dart';
 import '../widgePage/checkBoxAndSwitch.dart';
 import '../widgePage/column_main.dart';
 import '../widgePage/containerPage.dart';
-import '../widgePage/wrapPage.dart';
+import '../widgePage/wrapFlowPage.dart';
 import '../widgePage/text_field_main.dart';
 import '../widgePage/loginPage.dart';
 import '../widgePage/pushDemoParams.dart';
@@ -29,6 +29,7 @@ import '../widgePage/transformDemo.dart';
 import '../heightLeve/FutureBuilderPage.dart';
 import '../heightLeve/StreamBuilderPage.dart';
 import '../widgePage/alerdialog.dart';
+import '../widgePage/stackPositionedPage.dart';
 
 class PageManager {
    List<String>items = ['text',
@@ -39,7 +40,7 @@ class PageManager {
               'checkBoxAndSwitchdialog'
               'dialog',
               'rowAndColumn',
-              'wrapPage',
+              'wrapFlowPage',
               'textFiledPage',
               'progressIndicatorPage',
               'transformDemo',
@@ -61,7 +62,8 @@ class PageManager {
                 'shared_preferences',
                 'FutureBuilderPage',
                 'StreamBuilderPage',
-                'AletDialogPage'
+                'AletDialogPage',
+                'StackPositionedPage'
                 ];
     
     getWidgetPage(String pageName) {
@@ -86,8 +88,8 @@ class PageManager {
         case 'rowAndColumn':
           WidgetPage = ColumnDemoPage();
           break;
-        case 'wrapPage':
-          WidgetPage = WrapPage();
+        case 'wrapFlowPage':
+          WidgetPage = WrapFlowPage();
           break;
         case 'textFiledPage':
           WidgetPage = TextFieldDemoPage();
@@ -159,6 +161,9 @@ class PageManager {
           break;
         case 'AletDialogPage':
           WidgetPage = AletDialogPage();
+          break;
+        case 'stackPositionedPage':
+          WidgetPage = StackPositionedPage();
           break;
         default:
           WidgetPage = ButtonPage();
