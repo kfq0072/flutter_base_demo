@@ -11,7 +11,11 @@ class ImagePageWidget extends StatelessWidget {
       body: Center(
         child:Column(
           children:[
-           Image.asset(this.localImageName,width: 100,height: 100,),
+            Container(
+              child:Tooltip(message: '不要碰我,我怕痒',
+            child: Image.asset(this.localImageName,width: 200,height: 200,),
+           ),
+            ),
            Image.network(networkImageUrl,
                   height: 80.0,
                   // 横向重复

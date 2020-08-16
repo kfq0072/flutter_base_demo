@@ -10,15 +10,15 @@ class ContainnerPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,//因为是列，所以这个属性就控制水平向了
         children:[
           Container(
-            alignment: Alignment.center,
+            // alignment: Alignment.center,
             // 宽，高度同上层容器相同
             // width: MediaQuery.of(context).size.width,
             // height: MediaQuery.of(context).size.height,
             width:200,
             height:200,
-            margin: const EdgeInsets.all(8.0),
-            padding: const EdgeInsets.all(20.0),
-            child:Text('妹子妹子', style: TextStyle(color: Colors.white, fontSize: 30.0)),
+            margin: const EdgeInsets.all(8.0),//控制本身，对外的组件
+            padding: const EdgeInsets.fromLTRB(30, 10, 10, 10),//控制子组件
+            child:Text('妹子妹子', style: TextStyle(color: Colors.white, fontSize: 30.0,backgroundColor: Colors.red)),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.0),
                 color: Colors.red,

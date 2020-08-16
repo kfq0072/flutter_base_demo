@@ -68,13 +68,41 @@ class ListViewDemoPage extends StatelessWidget {
 //          itemCount: letters.length),
 
       // 需要分割线的时候才使用，不能指定 item 的高度
-      body: ListView.separated(
-          itemBuilder: (_, index) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: Center(child: Text(letters[index], style: TextStyle(color: Colors.blue))),
-              ),
-          separatorBuilder: (_, index) => Divider(height: 1.0, color: index % 2 == 0 ? Colors.black : Colors.red),
-          itemCount: letters.length),
+    //   body: ListView.separated(
+    //       itemBuilder: (_, index) => Padding(
+    //             padding: const EdgeInsets.symmetric(vertical: 20.0),
+    //             child: Center(child: Text(letters[index], style: TextStyle(color: Colors.blue))),
+    //           ),
+    //       separatorBuilder: (_, index) => Divider(height: 1.0, color: index % 2 == 0 ? Colors.black : Colors.red),
+    //       itemCount: letters.length),
+
+    body: Center(
+      child:Container(
+        height: 400,
+        child: MyListViewGood(myColor1: "dd", myColor2: "ddd", myColor3: "pppp")
+    ),
+    )
+    );
+  }
+}
+
+
+
+class MyListViewGood extends StatelessWidget {
+   final String myColor1;
+  final String myColor2;
+  final String myColor3;
+
+  MyListViewGood({@required this.myColor1,@required this.myColor2,@required this.myColor3});
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      scrollDirection: Axis.horizontal,
+      children: <Widget>[
+        Container(width:10,color: Colors.blue),
+        Container(width:100,color:Colors.blue),
+        Container(width:200,color:Colors.yellow)
+      ],
     );
   }
 }

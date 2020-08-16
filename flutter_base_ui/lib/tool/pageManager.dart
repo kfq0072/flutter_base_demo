@@ -30,6 +30,12 @@ import '../heightLeve/FutureBuilderPage.dart';
 import '../heightLeve/StreamBuilderPage.dart';
 import '../widgePage/alerdialog.dart';
 import '../widgePage/stackPositionedPage.dart';
+import '../widgePage/bottomAppBarDemo.dart';
+import '../widgePage/expannsionTileDemo.dart';
+import '../widgePage/expansionPanelListDemo.dart';
+import '../widgePage/custom_clipper.dart';
+import '../widgePage/splash_screen.dart';
+import '../widgePage/right_back_demo.dart';
 
 class PageManager {
    List<String>items = ['text',
@@ -63,7 +69,13 @@ class PageManager {
                 'FutureBuilderPage',
                 'StreamBuilderPage',
                 'AletDialogPage',
-                'StackPositionedPage'
+                'StackPositionedPage',
+                'BottomAppBarDemo',
+                'ExpannsionTileDemo',
+                'ExpansionPanelListDemo',
+                'MyCustomClipper',
+                'splash_screen',
+                'RightBackDemo'
                 ];
     
     getWidgetPage(String pageName) {
@@ -164,6 +176,24 @@ class PageManager {
           break;
         case 'stackPositionedPage':
           WidgetPage = StackPositionedPage();
+          break;
+        case 'BottomAppBarDemo':
+          WidgetPage = BottomAppBarDemo();
+          break;
+        case 'ExpannsionTileDemo':
+          WidgetPage = ExpannsionTileDemo();
+          break;
+        case 'ExpansionPanelListDemo':
+          WidgetPage = ExpansionPanelListDemo();
+          break;
+        case 'MyCustomClipper':
+          WidgetPage = MyCustomClipper();
+          break;
+        case 'splash_screen':
+          WidgetPage = SplashScreen();
+          break;
+        case 'RightBackDemo':
+          WidgetPage = RightBackDemo();
           break;
         default:
           WidgetPage = ButtonPage();
